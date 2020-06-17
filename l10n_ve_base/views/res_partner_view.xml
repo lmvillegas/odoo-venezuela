@@ -8,7 +8,7 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="type">form</field>
         <field name="arch" type="xml">
-          <xpath expr="//div[@class='o_address_format']" position="replace">
+          <xpath expr="//div[hasclass('o_address_format')]" position="replace">
             <div class="o_address_format">
                 <field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}'
                     attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>

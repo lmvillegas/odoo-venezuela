@@ -1,4 +1,4 @@
-id,country_id:id,name,code
+"id","country_id:id","name","code"
 state_ve_1,base.ve,Distrito Capital,DC
 state_ve_2,base.ve,Anzoategui,AZ
 state_ve_3,base.ve,Amazonas,AM

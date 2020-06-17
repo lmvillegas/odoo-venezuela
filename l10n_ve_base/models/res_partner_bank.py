@@ -43,10 +43,6 @@ class res_partner_bank(models.Model):
             raise exceptions.UserError(
                 _(u'Debe Seleccionar la Entidad Bancaria.')
             )
-        if not vals['l10n_ve_acc_type']:
-            raise exceptions.UserError(
-                _(u'Debe seleccionar el tipo de Cuenta.')
-            )
         res = super(res_partner_bank, self).create(vals)
         return res
 
@@ -60,11 +56,6 @@ class res_partner_bank(models.Model):
             if not vals.get('acc_number', False):
                 raise exceptions.UserError(
                     _(u'Debe indicar el numero de cuenta.')
-                )
-        if 'l10n_ve_acc_type' in vals:
-            if not vals.get('l10n_ve_acc_type', False):
-                raise exceptions.UserError(
-                    _(u'Debe seleccionar el tipo de Cuenta.')
                 )
         res = super(res_partner_bank, self).write(vals)
         return res

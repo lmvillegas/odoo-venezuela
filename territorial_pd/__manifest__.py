@@ -25,13 +25,15 @@
     'website': "http://sinapsys.global",
     'category': 'Localization',
     'version': '0.1',
-    'depends': ['base'],
+    'depends': ['base','contacts'],
     'data': [
         'data/res.country.csv',
         'data/res.country.state.csv',
         'data/res.country.state.municipality.csv',
         'data/res.country.state.municipality.parish.csv',
         'security/ir.model.access.csv',
+        'views/res_country_state_municipality.xml',
+        'views/res_country_state_municipality_parish.xml',
     ],
 
 }

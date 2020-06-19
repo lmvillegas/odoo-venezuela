@@ -22,6 +22,13 @@
     'license': 'AGPL-3',
     'depends': ['account',],
     'data': [
+        'views/account_payment_group_view.xml',
+        'views/account_payment_view.xml',
+        'views/account_tax_view.xml',
+        'views/res_partner_view.xml',
+        'wizards/res_config_settings_views.xml',
+        'security/ir.model.access.csv',
+        'data/account_payment_method_data.xml',
     ],
 
 }

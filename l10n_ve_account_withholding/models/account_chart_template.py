@@ -30,9 +30,9 @@ class AccountChartTemplate(models.Model):
         if company._localization_use_withholdings():
             # creamos diario para retenciones
             inbound_withholding = self.env.ref(
-                'account_withholding.account_payment_method_in_withholding')
+                'l10n_ve_account_withholding.account_payment_method_in_withholding')
             outbound_withholding = self.env.ref(
-                'account_withholding.account_payment_method_out_withholding')
+                'l10n_ve_account_withholding.account_payment_method_out_withholding')
             journal = self.env['account.journal'].create({
                 'name': 'Retenciones',
                 'type': 'cash',

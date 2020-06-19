@@ -1,4 +1,12 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError, ValidationError
+from ast import literal_eval
+from odoo.tools.safe_eval import safe_eval
+from dateutil.relativedelta import relativedelta
+import datetime
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class AccountTaxTemplate(models.Model):
@@ -99,14 +107,13 @@ class AccountTax(models.Model):
     )
     withholding_python_compute = fields.Text(
         'Python Code (withholdings)',
-        default='''
-    # withholdable_base_amount
-    # payment: account.payment.group object
-    # partner: res.partner object (commercial partner of payment group)
-    # withholding_tax: account.tax.withholding object
-
-    result = withholdable_base_amount * 0.10
-        ''',
+        default="""
+            # withholdable_base_amount
+            # payment: account.payment.group object
+            # partner: res.partner object (commercial partner of payment group)
+            # withholding_tax: account.tax.withholding object 
+            # result = withholdable_base_amount * 0.10
+        """,
     )
     withholding_rule_ids = fields.One2many(
         'account.tax.withholding.rule',
@@ -166,6 +173,8 @@ class AccountTax(models.Model):
         return False
 
     def create_payment_withholdings(self, payment_group):
+        _logger.warning('PENDIENTEEEEEEEEEEEE')
+        _logger.warning(self.filtered(lambda x: x.withholding_type != 'none'))
         for tax in self.filtered(lambda x: x.withholding_type != 'none'):
             payment_withholding = self.env[
                 'account.payment'].search([
@@ -200,7 +209,8 @@ class AccountTax(models.Model):
             # withholding can not be negative
             computed_withholding_amount = max(0, (
                 period_withholding_amount - previous_withholding_amount))
-
+            _logger.warning('sigue aquiiii')
+            _logger.warning(computed_withholding_amount)
             if not computed_withholding_amount:
                 # if on refresh no more withholding, we delete if it exists
                 if payment_withholding:
@@ -216,7 +226,6 @@ class AccountTax(models.Model):
                 'withholdable_invoiced_amount')
             vals['amount'] = computed_withholding_amount
             vals['computed_withholding_amount'] = computed_withholding_amount
-
             # por ahora no imprimimos el comment, podemos ver de llevarlo a
             # otro campo si es de utilidad
             vals.pop('comment')
@@ -225,7 +234,7 @@ class AccountTax(models.Model):
             else:
                 # TODO implementar devoluciones de retenciones
                 payment_method = self.env.ref(
-                    'account_withholding.'
+                    'l10n_ve_account_withholding.'
                     'account_payment_method_out_withholding')
                 journal = self.env['account.journal'].search([
                     ('company_id', '=', tax.company_id.id),
@@ -313,7 +322,7 @@ class AccountTax(models.Model):
             previous_withholding_amount = sum(
                 self.env['account.payment'].search(
                     previos_payments_domain).mapped('amount'))
-
+        _logger.warning('ESTA PASANDO LOS ACOMULADOS MENSUAL Y ANUAL')
         total_amount = (
             accumulated_amount +
             withholdable_advanced_amount +

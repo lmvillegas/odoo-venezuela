@@ -7,19 +7,15 @@
 ###############################################################################
 from odoo import models, fields
 import logging
-# from dateutil.relativedelta import relativedelta
 _logger = logging.getLogger(__name__)
 
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    retencion_iva = fields.Selection([
-        ('0', 'Imposibilidad de Retención'),
+    vat_retention = fields.Selection([
         ('75', ' 75%'),
         ('100', '100%'),
     ],
         'Retención I.V.A',
-        readonly=True,
-        states={'draft': [('readonly', False)]}
     )

@@ -17,8 +17,19 @@
                         name="regimen_islr_id" 
                         attrs="{'invisible': [('islr', '!=', True)], 'required': [('islr', '!=', False), ('state', 'in', ['draft', 'confirmed'])]}" 
                         domain="[('id', 'in', partner_regimen_islr_ids)]" 
-                        options='{"no_open": True, "no_create": True}'/>
+                        options='{"no_open": True, "no_create": True}'/>                        
                 </field>
+                <xpath expr="//button[@name='compute_withholdings']" position="replace">
+                    
+                <button name="compute_withholdings" 
+                        string="Calcular Retenciones" 
+                        type="object" 
+                        confirm="El computar la retención realizara un solo registro por la factura correspondiente, para ello solo puede pagar una factura a la vez."
+                        attrs="{'invisible': [
+                            '|','|', ('partner_type', '!=', 'supplier'), ('state', 'not in', ['draft', 'confirmed']),
+                            ('iva', '!=', True),('islr', '!=', True)
+                        ]}"/>
+                </xpath>
             </field>
         </record>
     </data>

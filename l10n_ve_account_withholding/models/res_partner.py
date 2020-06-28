@@ -19,3 +19,14 @@ class ResPartner(models.Model):
     ],
         'Retención I.V.A',
     )
+    seniat_partner_type_id = fields.Many2one(
+        'seniat.partner.type', 
+        'Tipo de persona para la retención ISLR',
+    )
+    seniat_regimen_islr_ids = fields.Many2many(
+        'seniat.tabla.islr',
+        'seniat_tabla_islr_partner_rel',
+        'partner_id', 'seniat_tabla_islr_id',
+        string='Remigen ISLR Aplicar',
+        domain="[('seniat_partner_type_id', '=', seniat_partner_type_id)]",
+    )

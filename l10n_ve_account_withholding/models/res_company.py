@@ -5,10 +5,6 @@ class ResCompany(models.Model):
 
     _inherit = 'res.company'
 
-    automatic_withholdings = fields.Boolean(
-        help='Make withholdings automatically on payments confirmation'
-    )
-
     def _localization_use_withholdings(self):
         """ This method is to be inherited by localizations and return True 
             if localization use documents """

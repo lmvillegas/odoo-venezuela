@@ -106,7 +106,7 @@ class SeniatTablaIslr(models.Model):
         'Código SENIAT',
         size=6,
         required=True,
-        help='Codigo de regimen de inscripcion en impuesto a las ganancias.'
+        help='Código del régimen de retención del ISLR.'
     )
     activity_name = fields.Char(
         'Actividad',

@@ -27,6 +27,6 @@ class ResPartner(models.Model):
         'seniat.tabla.islr',
         'seniat_tabla_islr_partner_rel',
         'partner_id', 'seniat_tabla_islr_id',
-        string='Remigen ISLR Aplicar',
+        string='Régimen ISLR Aplicar',
         domain="[('seniat_partner_type_id', '=', seniat_partner_type_id)]",
     )

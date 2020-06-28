@@ -86,6 +86,9 @@ class AccountTax(models.Model):
             vals['withholdable_base_amount'] = base_withholding
             vals['period_withholding_amount'] = withholding
 
+        else:
+            vals = super(AccountTax, self).get_withholding_vals(
+                payment_group, force_withholding_amount_type)
         return vals
 
     def get_partner_alicuota_percepcion(self, partner, date):

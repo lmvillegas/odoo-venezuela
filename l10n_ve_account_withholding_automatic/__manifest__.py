@@ -23,17 +23,21 @@
     'license': 'AGPL-3',
     'category': 'Accounting & Finance',
     'data': [
+        'wizards/res_config_settings_views.xml',
         'views/account_tax_view.xml',
+        'views/account_payment_group_view.xml',
         'views/account_payment_view.xml',
-        'data/account_payment_method_data.xml',
+        'security/ir.model.access.csv',
+    ],
+    'demo': [
+        'demo/withholding_demo.xml',
     ],
     'depends': [
-        'account',
-        # for payment method description and company_id field on form view
-        'l10n_ve_account_payment_fix',
+        'l10n_ve_account_payment_group',
+        'l10n_ve_account_withholding',
     ],
     'installable': True,
-    'name': 'Withholdings on Payments',
+    'name': 'Automatic Withholdings on Payments',
     'test': [],
     'version': "13.0.1.0.0",
 }

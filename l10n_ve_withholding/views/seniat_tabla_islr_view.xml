@@ -55,7 +55,7 @@
             <form string="Banda de calculo del ISLR">
                 <sheet>
                     <group>
-                        <field name="type_subtracting_rel" />
+                        <field name="type_subtracting_rel" invisible="1"/>
                         <group>
                             <field name="type_amount" />
                             <field name="amount_minimum" />

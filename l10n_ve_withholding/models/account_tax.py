@@ -59,7 +59,8 @@ class AccountTax(models.Model):
             for band in regimen.banda_calculo_ids:
                 if band.type_amount == 'ut':
                     base_ut = base / regimen.seniat_ut_id.amount
-
+                else:
+                    base_ut = base
                 if base_ut >= band.amount_minimum and base_ut <= band.amount_maximum:
                     withholding_percentage = band.withholding_percentage / 100
 

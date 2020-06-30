@@ -54,6 +54,7 @@ class AccountTax(models.Model):
             withholding_percentage = 0.0
             base_ut = 0.0
             subtracting = 0.0
+            withholding = 0.0
             _logger.warning('ESTA ENTRANDO EN EL ISLR')
             for band in regimen.banda_calculo_ids:
                 if band.type_amount == 'ut':
@@ -75,10 +76,15 @@ class AccountTax(models.Model):
                             
                 
             if subtracting > 0.0:
-                withholding = (base_withholding * withholding_percentage) - \
-                    subtracting
+                withholding = (base_withholding * withholding_percentage) - subtracting
             else:
                 withholding = base_withholding * withholding_percentage
+            _logger.warning('withholding')
+            _logger.warning(withholding)
+            _logger.warning('base_withholding')
+            _logger.warning(base_withholding)
+            _logger.warning('withholding_percentage')
+            _logger.warning(withholding_percentage)
     
             vals['comment'] = "%s - %s" % (
                 base, withholding)

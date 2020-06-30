@@ -54,6 +54,7 @@ class AccountTax(models.Model):
             withholding_percentage = 0.0
             base_ut = 0.0
             subtracting = 0.0
+            _logger.warning('ESTA ENTRANDO EN EL ISLR')
             for band in regimen.banda_calculo_ids:
                 if band.type_amount == 'ut':
                     base_ut = base / regimen.seniat_ut_id.amount
@@ -85,6 +86,8 @@ class AccountTax(models.Model):
             vals['withholdable_invoiced_amount'] = base
             vals['withholdable_base_amount'] = base_withholding
             vals['period_withholding_amount'] = withholding
+
+            _logger.warning(vals)
 
         else:
             vals = super(AccountTax, self).get_withholding_vals(

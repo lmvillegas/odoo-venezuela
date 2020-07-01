@@ -25,7 +25,11 @@ class AccountTax(models.Model):
         commercial_partner = payment_group.commercial_partner_id
 
         force_withholding_amount_type = None
+        _logger.warning('withholding_type')
+        _logger.warning(self.withholding_type)
+        _logger.warning(payment_group.iva)
         if self.withholding_type == 'partner_tax' and payment_group.iva == True:
+            _logger.warning('IF IVA RETENTION')
             alicuota_retencion = self.get_partner_alicuot(commercial_partner)
             alicuota = int(alicuota_retencion) / 100.0
             force_withholding_amount_type = self.withholding_amount_type
@@ -42,6 +46,7 @@ class AccountTax(models.Model):
             vals['withholdable_invoiced_amount'] = base_invoice
             vals['withholdable_base_amount'] = base_amount
             vals['period_withholding_amount'] = amount
+            _logger.warning(vals)
 
         elif self.withholding_type == 'tabla_islr':
             regimen = payment_group.regimen_islr_id

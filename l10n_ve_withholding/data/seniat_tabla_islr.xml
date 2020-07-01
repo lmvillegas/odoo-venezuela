@@ -482,6 +482,8 @@
                     'amount_minimum': 125000.0,
                     'amount_maximum': 0.00,
                     'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount': 1250.00,
                     'withholding_percentage': 1.00
                 })
             ]"/>

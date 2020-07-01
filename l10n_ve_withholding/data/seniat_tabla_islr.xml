@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-  <data>
+  <data noupdate="1">
     <!-- Retenciones ISLR -->
         <!-- bloque 1 -->
         <record id="tax_retencion_001" model="seniat.tabla.islr">

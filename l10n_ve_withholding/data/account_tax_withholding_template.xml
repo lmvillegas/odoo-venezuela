@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-  <data>
+  <data noupdate="1">
     <!-- secuencia para las Retenciones -->
         <record id="sequence_tax_retencion_iva" model="ir.sequence">
             <field name="name">Retención IVA</field>

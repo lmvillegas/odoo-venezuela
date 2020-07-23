@@ -5,10 +5,17 @@
 #
 #
 ###############################################################################
-from . import res_company
-from . import account_tax
-from . import account_move
-from . import seniat_islr
-from . import account_payment_group
-from . import res_partner
-from . import account_payment
+from odoo import models, fields
+import logging
+_logger = logging.getLogger(__name__)
+
+
+class ResPartner(models.Model):
+    _inherit = "res.partner"
+
+    vat_retention = fields.Selection([
+        ('75', ' 75%'),
+        ('100', '100%'),
+    ],
+        'Retención I.V.A',
+    )

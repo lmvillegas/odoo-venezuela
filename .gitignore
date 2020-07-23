@@ -3,6 +3,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+#Other repo
+pos_hka_printer/
+bi_pos_multi_currency/
+custom_pos_keyboard_shortcut/
+pos_reprint_inherit/
 # C extensions
 *.so
 

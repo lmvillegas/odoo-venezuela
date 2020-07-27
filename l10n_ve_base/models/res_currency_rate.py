@@ -18,7 +18,7 @@ class resCurrencyRate(models.Model):
     _inherit = 'res.currency.rate'
 
     rate = fields.Float(
-        digits=(16, 12),
+        digits=(16, 16),
         default=1,
         help="The rate of the currency to the currency of rate 1")
 
@@ -28,7 +28,7 @@ class resCurrency(models.Model):
     rate = fields.Float(
         compute='_compute_current_rate', 
         string='Current Rate', 
-        digits=(16, 12),                
+        digits=(16, 16),                
         help='The rate of the currency to the currency of rate 1.')
 
 

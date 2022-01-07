@@ -145,7 +145,8 @@ class AccountPayment(models.Model):
         for rec in self:
             # if false, then it is a transfer
             rec.payment_type = (
-                rec.payment_type_copy and rec.payment_type_copy or 'transfer')
+                rec.payment_type_copy and rec.payment_type_copy)
+                # rec.payment_type_copy and rec.payment_type_copy or 'transfer')
 
     @api.depends('payment_type')
     def _compute_payment_type_copy(self):

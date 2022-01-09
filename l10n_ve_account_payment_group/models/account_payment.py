@@ -350,3 +350,21 @@ class AccountPayment(models.Model):
                         line[2]['credit'] = rec.force_amount_company_currency
             all_move_vals += move_vals
         return all_move_vals
+    
+    # @api.depends('is_internal_transfer')
+    # def _compute_partner_id(self):
+    #     for pay in self:
+    #         _logger.warning('ESTA ENTRANDO EN EL IFFFF')
+    #         if pay.is_internal_transfer:
+    #             pay.partner_id = pay.journal_id.company_id.partner_id
+    
+    @api.depends('partner_id', 'destination_account_id', 'journal_id')
+    def _onchange_is_internal_transfer(self):
+        for payment in self:
+            if payment.is_internal_transfer:
+                _logger.warning('ESTA ENTRANDOOOOOOO')
+                payment.partner_id = payment.journal_id.company_id.partner_id
+                is_partner_ok = payment.partner_id == payment.journal_id.company_id.partner_id
+                is_account_ok = payment.destination_account_id and payment.destination_account_id == payment.journal_id.company_id.transfer_account_id
+                payment.is_internal_transfer = is_partner_ok and is_account_ok
+            

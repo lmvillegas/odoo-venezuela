@@ -151,10 +151,7 @@ class AccountPayment(models.Model):
     @api.depends('payment_type')
     def _compute_payment_type_copy(self):
         for rec in self:
-            if rec.payment_type == 'transfer':
-                rec.payment_type_copy = False
-            else:
-                rec.payment_type_copy = rec.payment_type
+            rec.payment_type_copy = rec.payment_type
 
     def get_journals_domain(self):
         domain = super(AccountPayment, self).get_journals_domain()
@@ -357,12 +354,24 @@ class AccountPayment(models.Model):
     #         _logger.warning('ESTA ENTRANDO EN EL IFFFF')
     #         if pay.is_internal_transfer:
     #             pay.partner_id = pay.journal_id.company_id.partner_id
+
+    @api.depends('partner_id')
+    def _compute_partner_bank_id(self):
+        ''' The default partner_bank_id will be the first available on the partner. '''
+        for pay in self:
+            available_partner_bank_accounts = pay.partner_id.bank_ids.filtered(
+                lambda x: x.company_id in (False, pay.company_id))
+            if available_partner_bank_accounts:
+                if not pay.is_internal_transfer:
+                    pay.partner_bank_id = available_partner_bank_accounts[0]._origin
+
+            else:
+                pay.partner_bank_id = False
     
     @api.depends('partner_id', 'destination_account_id', 'journal_id')
     def _onchange_is_internal_transfer(self):
         for payment in self:
             if payment.is_internal_transfer:
-                _logger.warning('ESTA ENTRANDOOOOOOO')
                 payment.partner_id = payment.journal_id.company_id.partner_id
                 is_partner_ok = payment.partner_id == payment.journal_id.company_id.partner_id
                 is_account_ok = payment.destination_account_id and payment.destination_account_id == payment.journal_id.company_id.transfer_account_id

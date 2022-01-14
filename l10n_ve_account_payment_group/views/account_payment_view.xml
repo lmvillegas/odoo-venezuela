@@ -217,6 +217,10 @@
 
             <!-- <field name="payment_type_copy" position="replace"/> -->
             <!-- sacamos confirm y groups en transfers -->
+            <form position="attributes">
+                <attribute name="create">false</attribute>
+                <attribute name="edit">true</attribute>
+            </form>
             <button name="action_post" position="attributes">
                 <attribute name="confirm"></attribute>
                 <attribute name="groups"></attribute>

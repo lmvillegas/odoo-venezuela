@@ -150,8 +150,11 @@ class AccountPayment(models.Model):
 
     @api.depends('payment_type')
     def _compute_payment_type_copy(self):
-        for rec in self:
-            rec.payment_type_copy = rec.payment_type
+        for rec in self.with_context(skip_account_move_synchronization=True):
+            if rec.payment_type == 'transfer':
+                rec.payment_type_copy = False
+            else:
+                rec.payment_type_copy = rec.payment_type
 
     def get_journals_domain(self):
         domain = super(AccountPayment, self).get_journals_domain()

@@ -564,6 +564,8 @@ class AccountPaymentGroup(models.Model):
         create_from_website = self._context.get('create_from_website', False)
         create_from_statement = self._context.get('create_from_statement', False)
         create_from_expense = self._context.get('create_from_expense', False)
+        reconcile_only = self._context.get('reconcile_only', False)
+        reconcile_amount = self._context.get('reconcile_amount', False)
         for rec in self:
             # TODO if we want to allow writeoff then we can disable this
             # constrain and send writeoff_journal_id and writeoff_acc_id
@@ -591,6 +593,11 @@ class AccountPaymentGroup(models.Model):
             counterpart_aml = rec.payment_ids.mapped('invoice_line_ids').filtered(
                 lambda r: not r.reconciled and r.account_id.internal_type in (
                     'payable', 'receivable'))
+
+            if reconcile_only:
+                counterpart_aml = rec.payment_ids.mapped('invoice_line_ids').filtered(
+                    lambda r: not r.reconciled and r.account_id.internal_type in (
+                        'payable', 'receivable') and r.credit == reconcile_amount)
 
             # porque la cuenta podria ser no recivible y ni conciliable
             # (por ejemplo en sipreco)
